@@ -8,7 +8,7 @@ export interface SkillItem {
 export interface SkillArea {
   key: string;
   label: LocalizedText;
-  icon: string;
+  icon: 'settings' | 'palette' | 'wrench';
   color: string;
   skills: SkillItem[];
 }
@@ -17,7 +17,7 @@ export const skillAreas: SkillArea[] = [
   {
     key: 'backend',
     label: { es: 'Backend', en: 'Backend' },
-    icon: '⚙️',
+    icon: 'settings',
     color: '#3b82f6',
     skills: [
       { name: 'Python', level: 85 },
@@ -30,7 +30,7 @@ export const skillAreas: SkillArea[] = [
   {
     key: 'frontend',
     label: { es: 'Frontend', en: 'Frontend' },
-    icon: '🎨',
+    icon: 'palette',
     color: '#10b981',
     skills: [
       { name: 'JavaScript', level: 70 },
@@ -43,7 +43,7 @@ export const skillAreas: SkillArea[] = [
   {
     key: 'tools',
     label: { es: 'Herramientas', en: 'Tools' },
-    icon: '🛠️',
+    icon: 'wrench',
     color: '#8b5cf6',
     skills: [
       { name: 'Git & GitHub', level: 80 },
