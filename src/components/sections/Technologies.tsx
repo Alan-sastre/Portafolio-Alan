@@ -23,7 +23,7 @@ const technologies = [
 ];
 
 export default function Technologies() {
-  const { lang } = useLanguage();
+  const { lang, t } = useLanguage();
   const ref = useScrollReveal();
 
   return (
@@ -31,15 +31,13 @@ export default function Technologies() {
       <div ref={ref} className="max-w-6xl mx-auto px-6 reveal">
         <div className="text-center mb-12">
           <p className="text-sm font-mono mb-2" style={{ color: 'var(--text-muted)' }}>
-            {lang === 'es' ? 'Tecnologías' : 'Technologies'}
+            {t('technologies.subtitle')}
           </p>
           <h2 className="text-3xl md:text-4xl font-bold mb-4" style={{ color: 'var(--text-primary)' }}>
-            {lang === 'es' ? 'Herramientas que uso' : 'Tools I use'}
+            {t('technologies.title')}
           </h2>
           <p className="text-base max-w-xl mx-auto" style={{ color: 'var(--text-secondary)' }}>
-            {lang === 'es'
-              ? 'Las tecnologías y herramientas que utilizo día a día para construir productos de software.'
-              : 'The technologies and tools I use every day to build software products.'}
+            {t('technologies.description')}
           </p>
         </div>
 
