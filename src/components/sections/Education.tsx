@@ -16,7 +16,7 @@ function getCategoryColor(category: string) {
   return categoryColors[category] || { bg: '#1e293b', text: '#3b82f6' };
 }
 
-function CertificateModal({ cert, onClose, lang }: { cert: any; onClose: () => void; lang: 'es' | 'en' }) {
+function CertificateModal({ cert, onClose, lang, t }: { cert: any; onClose: () => void; lang: 'es' | 'en'; t: (key: string) => string }) {
   return (
     <div
       className="fixed inset-0 z-50 flex items-center justify-center p-4"
@@ -41,7 +41,7 @@ function CertificateModal({ cert, onClose, lang }: { cert: any; onClose: () => v
             onClick={onClose}
             className="w-8 h-8 rounded-lg flex items-center justify-center text-lg"
             style={{ color: 'var(--text-muted)', backgroundColor: 'var(--bg-tertiary)' }}
-            aria-label={lang === 'es' ? 'Cerrar' : 'Close'}
+            aria-label={t('common.close')}
           >
             ✕
           </button>
@@ -57,7 +57,7 @@ function CertificateModal({ cert, onClose, lang }: { cert: any; onClose: () => v
           ) : (
             <div className="flex items-center justify-center" style={{ height: '70vh' }}>
               <p style={{ color: 'var(--text-muted)' }}>
-                {lang === 'es' ? 'Certificado no disponible' : 'Certificate not available'}
+                {t('common.cert_not_available')}
               </p>
             </div>
           )}
@@ -70,7 +70,7 @@ function CertificateModal({ cert, onClose, lang }: { cert: any; onClose: () => v
               className="px-4 py-2 rounded-lg text-sm font-medium text-white"
               style={{ backgroundColor: '#3b82f6' }}
             >
-              {lang === 'es' ? 'Descargar PDF' : 'Download PDF'}
+              {t('common.download_pdf')}
             </a>
           )}
           {cert.verifyUrl && (
@@ -81,7 +81,7 @@ function CertificateModal({ cert, onClose, lang }: { cert: any; onClose: () => v
               className="px-4 py-2 rounded-lg text-sm font-medium border"
               style={{ color: 'var(--text-primary)', borderColor: 'var(--border-color)' }}
             >
-              {lang === 'es' ? 'Verificar' : 'Verify'}
+              {t('common.verify')}
             </a>
           )}
         </div>
@@ -91,7 +91,7 @@ function CertificateModal({ cert, onClose, lang }: { cert: any; onClose: () => v
 }
 
 export default function Education() {
-  const { lang } = useLanguage();
+  const { lang, t } = useLanguage();
   const revealRef = useScrollReveal();
   const parallaxRef = useParallax(0.04);
   const [showAll, setShowAll] = useState(false);
@@ -106,16 +106,16 @@ export default function Education() {
       <div ref={revealRef} className="max-w-5xl mx-auto px-6 reveal">
         <div ref={parallaxRef} style={{ willChange: 'transform' }}>
         <p className="text-sm font-mono mb-2" style={{ color: 'var(--text-muted)' }}>
-          {lang === 'es' ? 'Formación' : 'Background'}
+          {t('education.subtitle')}
         </p>
         <h2 className="text-3xl md:text-4xl font-bold mb-12" style={{ color: 'var(--text-primary)' }}>
-          {lang === 'es' ? 'Educación y Certificaciones' : 'Education & Certifications'}
+          {t('education.title')}
         </h2>
 
         {/* Education */}
         <div className="mb-16">
           <h3 className="text-xl font-semibold mb-6" style={{ color: 'var(--text-primary)' }}>
-            {lang === 'es' ? 'Educación' : 'Education'}
+            {t('education.education')}
           </h3>
           <div className="space-y-4">
             {education.map((edu, i) => (
@@ -151,10 +151,10 @@ export default function Education() {
         {/* Certifications */}
         <div>
           <h3 className="text-xl font-semibold mb-2" style={{ color: 'var(--text-primary)' }}>
-            {lang === 'es' ? 'Certificaciones' : 'Certifications'}
+            {t('education.certifications')}
           </h3>
           <p className="text-sm mb-8" style={{ color: 'var(--text-muted)' }}>
-            {certifications.length} {lang === 'es' ? 'certificados obtenidos' : 'certificates earned'}
+            {certifications.length} {t('education.certificates_earned')}
           </p>
 
           {/* Certifications grid */}
@@ -225,8 +225,8 @@ export default function Education() {
                 style={{ borderColor: 'var(--border-color)', color: 'var(--text-secondary)' }}
               >
                 {showAll
-                  ? (lang === 'es' ? 'Ver menos' : 'See less')
-                  : (lang === 'es' ? 'Ver más' : 'See more')}
+                  ? t('education.see_less')
+                  : t('education.see_more')}
                 <span className="text-xs font-mono" style={{ color: 'var(--text-muted)' }}>
                   {showAll ? '(-' + rest.length + ')' : '(+' + rest.length + ')'}
                 </span>
@@ -242,6 +242,7 @@ export default function Education() {
         <CertificateModal
           cert={selectedCert}
           lang={lang}
+          t={t}
           onClose={() => setSelectedCert(null)}
         />
       )}
