@@ -3,7 +3,7 @@ import { useScrollReveal } from '../../hooks/useScrollReveal';
 import { useParallax } from '../../hooks/useParallax';
 
 export default function Experience() {
-  const { lang } = useLanguage();
+  const { lang, t } = useLanguage();
   const revealRef = useScrollReveal();
   const parallaxRef = useParallax(0.06);
 
@@ -48,10 +48,10 @@ export default function Experience() {
       <div ref={revealRef} className="max-w-4xl mx-auto px-6 reveal">
         <div ref={parallaxRef} style={{ willChange: 'transform' }}>
         <p className="text-sm font-mono mb-2" style={{ color: 'var(--text-muted)' }}>
-          {lang === 'es' ? 'Mi trayectoria' : 'My journey'}
+          {t('experience.subtitle')}
         </p>
         <h2 className="text-3xl md:text-4xl font-bold mb-12" style={{ color: 'var(--text-primary)' }}>
-          {lang === 'es' ? 'Experiencia' : 'Experience'}
+          {t('experience.title')}
         </h2>
         <div className="space-y-8">
           {experiences.map((exp, i) => (
