@@ -1,11 +1,13 @@
 import { useState } from 'react';
 import { useLanguage } from '../../i18n/LanguageContext';
 import { useTheme } from '../../hooks/useTheme';
+import { useActiveSection } from '../../hooks/useActiveSection';
 
 export default function Navbar() {
   const { lang, setLang, t } = useLanguage();
   const { isDark, toggle } = useTheme();
   const [open, setOpen] = useState(false);
+  const activeSection = useActiveSection(['projects', 'skills', 'education', 'github', 'contact']);
 
   const links = [
     { href: '#projects', label: t('nav.projects') },
@@ -24,16 +26,19 @@ export default function Navbar() {
 
         {/* Desktop links */}
         <div className="hidden md:flex items-center gap-6">
-          {links.map((link) => (
-            <a
-              key={link.href}
-              href={link.href}
-              className="text-sm font-medium transition-colors hover:text-primary-500"
-              style={{ color: 'var(--text-secondary)' }}
-            >
-              {link.label}
-            </a>
-          ))}
+          {links.map((link) => {
+            const isActive = activeSection === link.href.slice(1);
+            return (
+              <a
+                key={link.href}
+                href={link.href}
+                className="text-sm font-medium transition-colors hover:text-primary-500"
+                style={{ color: isActive ? '#3b82f6' : 'var(--text-secondary)' }}
+              >
+                {link.label}
+              </a>
+            );
+          })}
           <button
             onClick={() => setLang(lang === 'es' ? 'en' : 'es')}
             className="px-2 py-1 text-xs font-mono rounded border transition-colors hover:border-primary-500"
@@ -67,17 +72,20 @@ export default function Navbar() {
       {open && (
         <div className="md:hidden animate-slide-down" style={{ backgroundColor: 'var(--bg-primary)', borderTop: '1px solid var(--border-color)' }}>
           <div className="px-6 py-4 flex flex-col gap-3">
-            {links.map((link) => (
-              <a
-                key={link.href}
-                href={link.href}
-                onClick={() => setOpen(false)}
-                className="text-sm font-medium py-2"
-                style={{ color: 'var(--text-secondary)' }}
-              >
-                {link.label}
-              </a>
-            ))}
+            {links.map((link) => {
+              const isActive = activeSection === link.href.slice(1);
+              return (
+                <a
+                  key={link.href}
+                  href={link.href}
+                  onClick={() => setOpen(false)}
+                  className="text-sm font-medium py-2"
+                  style={{ color: isActive ? '#3b82f6' : 'var(--text-secondary)' }}
+                >
+                  {link.label}
+                </a>
+              );
+            })}
             <div className="flex gap-3 pt-2">
               <button
                 onClick={() => setLang(lang === 'es' ? 'en' : 'es')}
