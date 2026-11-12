@@ -11,7 +11,7 @@ const roles = [
 ];
 
 export default function Hero() {
-  const { lang } = useLanguage();
+  const { lang, t } = useLanguage();
   const ref = useScrollReveal(0.1);
   const [roleIndex, setRoleIndex] = useState(0);
   const [displayedText, setDisplayedText] = useState('');
@@ -51,7 +51,7 @@ export default function Hero() {
           {/* Text */}
           <div className="flex-1 text-center md:text-left">
             <p className="text-sm font-mono mb-3" style={{ color: 'var(--text-muted)' }}>
-              {lang === 'es' ? 'Hola, soy' : 'Hello, I\'m'}
+              {t('hero.hello')}
             </p>
             <h1 className="text-4xl md:text-6xl font-bold tracking-tight mb-4" style={{ color: 'var(--text-primary)' }}>
               {profile.name.split(' ').slice(0, 2).join(' ')}
@@ -68,14 +68,15 @@ export default function Hero() {
                 href="#projects"
                 className="px-6 py-3 rounded-lg text-sm font-medium text-white transition-all hover:opacity-90 bg-primary-600"
               >
-                {lang === 'es' ? 'Ver proyectos' : 'View projects'}
+                {t('hero.cta_projects')}
               </a>
               <a
-                href="#about"
+                href={lang === 'es' ? profile.cvEs : profile.cvEn}
+                download
                 className="px-6 py-3 rounded-lg text-sm font-medium transition-all border"
                 style={{ borderColor: 'var(--border-color)', color: 'var(--text-secondary)' }}
               >
-                {lang === 'es' ? 'Descargar CV' : 'Download CV'}
+                {t('hero.cta_download_cv')}
               </a>
             </div>
             {/* Key facts */}
