@@ -1,3 +1,4 @@
+import { asset } from '../lib/asset';
 import type { LocalizedText } from './profile';
 
 export interface Education {
@@ -37,8 +38,8 @@ export const certifications: Certification[] = [
     issuer: { es: 'Universidad de los Andes', en: 'University of the Andes' },
     year: '2024',
     category: 'Coursera',
-    coverImage: '/images/certificados/pentesting-uniandes_thumb-1.png',
-    certificateUrl: '/certificados/pentesting-uniandes.pdf',
+    coverImage: asset('/images/certificados/pentesting-uniandes_thumb-1.png'),
+    certificateUrl: asset('/certificados/pentesting-uniandes.pdf'),
     verifyUrl: 'https://coursera.org/verify/BDZRMDDW80U4',
     description: {
       es: 'Análisis de vulnerabilidades, pruebas de penetración y ciberseguridad ofensiva.',
@@ -50,8 +51,8 @@ export const certifications: Certification[] = [
     issuer: { es: 'Meta', en: 'Meta' },
     year: '2024',
     category: 'Coursera',
-    coverImage: '/images/certificados/backend-meta_thumb-1.png',
-    certificateUrl: '/certificados/backend-meta.pdf',
+    coverImage: asset('/images/certificados/backend-meta_thumb-1.png'),
+    certificateUrl: asset('/certificados/backend-meta.pdf'),
     verifyUrl: 'https://coursera.org/verify/DJ8WCQ4BXTFB',
     description: {
       es: 'Fundamentos del desarrollo backend, APIs y servidores.',
@@ -63,8 +64,8 @@ export const certifications: Certification[] = [
     issuer: { es: 'University of Michigan', en: 'University of Michigan' },
     year: '2023',
     category: 'Coursera',
-    coverImage: '/images/certificados/python-data-structures-michigan_thumb-1.png',
-    certificateUrl: '/certificados/python-data-structures-michigan.pdf',
+    coverImage: asset('/images/certificados/python-data-structures-michigan_thumb-1.png'),
+    certificateUrl: asset('/certificados/python-data-structures-michigan.pdf'),
     verifyUrl: 'https://coursera.org/verify/SFRSQ4LFVQWR',
     description: {
       es: 'Estructuras de datos en Python: listas, diccionarios, tuplas y archivos.',
@@ -76,8 +77,8 @@ export const certifications: Certification[] = [
     issuer: { es: 'Microsoft', en: 'Microsoft' },
     year: '2024',
     category: 'Coursera',
-    coverImage: '/images/certificados/computers-security-microsoft_thumb-1.png',
-    certificateUrl: '/certificados/computers-security-microsoft.pdf',
+    coverImage: asset('/images/certificados/computers-security-microsoft_thumb-1.png'),
+    certificateUrl: asset('/certificados/computers-security-microsoft.pdf'),
     verifyUrl: 'https://coursera.org/verify/T29B3N2FNVSQ',
     description: {
       es: 'Fundamentos de computadoras, sistemas operativos y seguridad informática.',
@@ -89,8 +90,8 @@ export const certifications: Certification[] = [
     issuer: { es: 'Universidad Austral', en: 'Universidad Austral' },
     year: '2023',
     category: 'Coursera',
-    coverImage: '/images/certificados/estructuras-datos-python-austral_thumb-1.png',
-    certificateUrl: '/certificados/estructuras-datos-python-austral.pdf',
+    coverImage: asset('/images/certificados/estructuras-datos-python-austral_thumb-1.png'),
+    certificateUrl: asset('/certificados/estructuras-datos-python-austral.pdf'),
     verifyUrl: 'https://coursera.org/verify/VKW3AUNE6DCF',
     description: {
       es: 'Estructuras de datos avanzadas en Python.',
@@ -103,8 +104,8 @@ export const certifications: Certification[] = [
     issuer: { es: 'Platzi', en: 'Platzi' },
     year: '2025',
     category: 'Platzi',
-    coverImage: '/images/certificados/javascript-platzi_thumb-1.png',
-    certificateUrl: '/certificados/javascript-platzi.pdf',
+    coverImage: asset('/images/certificados/javascript-platzi_thumb-1.png'),
+    certificateUrl: asset('/certificados/javascript-platzi.pdf'),
     verifyUrl: 'https://coursera.org/verify/DO4PQB4X963D',
     description: {
       es: 'Programación con JavaScript: fundamentos y aplicaciones.',
@@ -116,8 +117,8 @@ export const certifications: Certification[] = [
     issuer: { es: 'Platzi', en: 'Platzi' },
     year: '2024',
     category: 'Platzi',
-    coverImage: '/images/certificados/python-platzi_thumb-1.png',
-    certificateUrl: '/certificados/python-platzi.pdf',
+    coverImage: asset('/images/certificados/python-platzi_thumb-1.png'),
+    certificateUrl: asset('/certificados/python-platzi.pdf'),
     description: {
       es: 'Fundamentos de programación en Python.',
       en: 'Python programming fundamentals.',
@@ -128,8 +129,8 @@ export const certifications: Certification[] = [
     issuer: { es: 'Platzi', en: 'Platzi' },
     year: '2024',
     category: 'Platzi',
-    coverImage: '/images/certificados/python-fundamentos-platzi_thumb-1.png',
-    certificateUrl: '/certificados/python-fundamentos-platzi.pdf',
+    coverImage: asset('/images/certificados/python-fundamentos-platzi_thumb-1.png'),
+    certificateUrl: asset('/certificados/python-fundamentos-platzi.pdf'),
     description: {
       es: 'Conceptos básicos de Python para principiantes.',
       en: 'Basic Python concepts for beginners.',
@@ -140,8 +141,8 @@ export const certifications: Certification[] = [
     issuer: { es: 'Platzi', en: 'Platzi' },
     year: '2024',
     category: 'Platzi',
-    coverImage: '/images/certificados/git-github-platzi_thumb-1.png',
-    certificateUrl: '/certificados/git-github-platzi.pdf',
+    coverImage: asset('/images/certificados/git-github-platzi_thumb-1.png'),
+    certificateUrl: asset('/certificados/git-github-platzi.pdf'),
     description: {
       es: 'Control de versiones con Git y colaboración en GitHub.',
       en: 'Version control with Git and collaboration on GitHub.',
@@ -152,8 +153,8 @@ export const certifications: Certification[] = [
     issuer: { es: 'Platzi', en: 'Platzi' },
     year: '2024',
     category: 'Platzi',
-    coverImage: '/images/certificados/html-css-platzi_thumb-1.png',
-    certificateUrl: '/certificados/html-css-platzi.pdf',
+    coverImage: asset('/images/certificados/html-css-platzi_thumb-1.png'),
+    certificateUrl: asset('/certificados/html-css-platzi.pdf'),
     description: {
       es: 'Desarrollo web con HTML y CSS.',
       en: 'Web development with HTML and CSS.',
@@ -164,8 +165,8 @@ export const certifications: Certification[] = [
     issuer: { es: 'Platzi', en: 'Platzi' },
     year: '2024',
     category: 'Platzi',
-    coverImage: '/images/certificados/linux-platzi_thumb-1.png',
-    certificateUrl: '/certificados/linux-platzi.pdf',
+    coverImage: asset('/images/certificados/linux-platzi_thumb-1.png'),
+    certificateUrl: asset('/certificados/linux-platzi.pdf'),
     description: {
       es: 'Introducción a Linux y administración de sistemas.',
       en: 'Introduction to Linux and system administration.',
@@ -176,8 +177,8 @@ export const certifications: Certification[] = [
     issuer: { es: 'Platzi', en: 'Platzi' },
     year: '2024',
     category: 'Platzi',
-    coverImage: '/images/certificados/ingles-basico-platzi_thumb-1.png',
-    certificateUrl: '/certificados/ingles-basico-platzi.pdf',
+    coverImage: asset('/images/certificados/ingles-basico-platzi_thumb-1.png'),
+    certificateUrl: asset('/certificados/ingles-basico-platzi.pdf'),
     description: {
       es: 'Fundamentos del idioma inglés.',
       en: 'English language fundamentals.',
@@ -188,8 +189,8 @@ export const certifications: Certification[] = [
     issuer: { es: 'Platzi', en: 'Platzi' },
     year: '2024',
     category: 'Platzi',
-    coverImage: '/images/certificados/estrategias-ingles-platzi_thumb-1.png',
-    certificateUrl: '/certificados/estrategias-ingles-platzi.pdf',
+    coverImage: asset('/images/certificados/estrategias-ingles-platzi_thumb-1.png'),
+    certificateUrl: asset('/certificados/estrategias-ingles-platzi.pdf'),
     description: {
       es: 'Estrategias para mejorar el aprendizaje del inglés.',
       en: 'Strategies to improve English learning.',
@@ -201,8 +202,8 @@ export const certifications: Certification[] = [
     issuer: { es: 'MIC TIC', en: 'MIC TIC' },
     year: '2024',
     category: 'MIC TIC',
-    coverImage: '/images/certificados/python-mictic_thumb-1.png',
-    certificateUrl: '/certificados/python-mictic.pdf',
+    coverImage: asset('/images/certificados/python-mictic_thumb-1.png'),
+    certificateUrl: asset('/certificados/python-mictic.pdf'),
     description: {
       es: 'Certificación del Ministerio de TIC en programación Python.',
       en: 'Ministry of TIC certification in Python programming.',
@@ -214,8 +215,8 @@ export const certifications: Certification[] = [
     issuer: { es: 'Cisco', en: 'Cisco' },
     year: '2024',
     category: 'Cisco',
-    coverImage: '/images/certificados/cybersecurity-cisco_thumb-1.png',
-    certificateUrl: '/certificados/cybersecurity-cisco.pdf',
+    coverImage: asset('/images/certificados/cybersecurity-cisco_thumb-1.png'),
+    certificateUrl: asset('/certificados/cybersecurity-cisco.pdf'),
     description: {
       es: 'Fundamentos de ciberseguridad, amenazas y protección de redes.',
       en: 'Cybersecurity fundamentals, threats, and network protection.',

@@ -1,3 +1,5 @@
+import { asset } from '../lib/asset';
+
 export interface LocalizedText {
   es: string;
   en: string;
@@ -36,8 +38,8 @@ export const profile: Profile = {
   githubUrl: 'https://github.com/Alan-sastre',
   githubUser: 'Alan-sastre',
   linkedinUrl: 'https://linkedin.com/in/alan-sastre',
-  cvEs: '/cv-alan-sastre-es.pdf',
-  cvEn: '/cv-alan-sastre-en.pdf',
+  cvEs: asset('/cv-alan-sastre-es.pdf'),
+  cvEn: asset('/cv-alan-sastre-en.pdf'),
   about: {
     es: [
       'Soy desarrollador de software con más de 3 años de experiencia diseñando y construyendo APIs REST con Python y Java, trabajando con bases de datos SQL y NoSQL. Mi pasión reside en el desarrollo backend, la ciberseguridad ofensiva y la integración de inteligencia artificial en productos reales.',

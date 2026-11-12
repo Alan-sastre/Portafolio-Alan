@@ -1,3 +1,4 @@
+import { asset } from '../lib/asset';
 import type { LocalizedText } from './profile';
 
 export interface Project {
@@ -24,7 +25,7 @@ export const projects: Project[] = [
     technologies: ['React', 'Vite', 'Supabase', 'Tailwind CSS', 'TypeScript'],
     githubUrl: 'https://github.com/Alan-sastre/gestor-salones',
     liveUrl: 'https://gestor-salones.netlify.app',
-    image: '/images/gestor-salones.png',
+    image: asset('/images/gestor-salones.png'),
     imageColor: '#3b82f6',
     featured: true,
   },
@@ -54,7 +55,7 @@ export const projects: Project[] = [
     technologies: ['Next.js', 'TypeScript', 'Tailwind CSS', 'Git'],
     githubUrl: 'https://github.com/MikaStiebitz/Git-Mastery/pull/91',
     liveUrl: 'https://gitmastery.me',
-    image: '/images/git-mastery.png',
+    image: asset('/images/git-mastery.png'),
     imageColor: '#8b5cf6',
     featured: true,
   },
