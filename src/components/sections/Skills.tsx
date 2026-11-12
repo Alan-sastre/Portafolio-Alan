@@ -3,6 +3,24 @@ import { skillAreas } from '../../data/skills';
 import { useScrollReveal } from '../../hooks/useScrollReveal';
 import { useParallax } from '../../hooks/useParallax';
 import { useState, useEffect } from 'react';
+import { Settings, Palette, Wrench } from 'lucide-react';
+
+const iconMap: Record<string, React.ComponentType<{ size?: number; strokeWidth?: number }>> = {
+  settings: Settings,
+  palette: Palette,
+  wrench: Wrench,
+};
+
+function useRadarSize() {
+  const [size, setSize] = useState(340);
+  useEffect(() => {
+    const update = () => setSize(window.innerWidth < 640 ? 260 : 340);
+    update();
+    window.addEventListener('resize', update);
+    return () => window.removeEventListener('resize', update);
+  }, []);
+  return size;
+}
 
 function RadarChart({ data, size = 340 }: { data: { name: string; value: number; color: string }[]; size?: number }) {
   const [animated, setAnimated] = useState(false);
@@ -123,10 +141,11 @@ function RadarChart({ data, size = 340 }: { data: { name: string; value: number;
 }
 
 export default function Skills() {
-  const { lang } = useLanguage();
+  const { lang, t } = useLanguage();
   const revealRef = useScrollReveal();
   const parallaxRef = useParallax(0.05);
   const [activeArea, setActiveArea] = useState('backend');
+  const radarSize = useRadarSize();
 
   const area = skillAreas.find((a) => a.key === activeArea) || skillAreas[0];
   const radarData = area.skills.map((s) => ({ name: s.name, value: s.level, color: area.color }));
@@ -136,41 +155,48 @@ export default function Skills() {
       <div ref={revealRef} className="max-w-6xl mx-auto px-6 reveal">
         <div ref={parallaxRef} style={{ willChange: 'transform' }}>
         <p className="text-sm font-mono mb-2" style={{ color: 'var(--text-muted)' }}>
-          {lang === 'es' ? 'Tecnologías' : 'Technologies'}
+          {t('skills.subtitle')}
         </p>
         <h2 className="text-3xl md:text-4xl font-bold mb-10" style={{ color: 'var(--text-primary)' }}>
-          {lang === 'es' ? 'Habilidades técnicas' : 'Technical Skills'}
+          {t('skills.title')}
         </h2>
 
         {/* Area selection tabs */}
         <div className="flex flex-wrap gap-2 mb-10">
-          {skillAreas.map((a) => (
-            <button
-              key={a.key}
-              onClick={() => setActiveArea(a.key)}
-              className="flex items-center gap-2 px-5 py-2.5 rounded-xl text-sm font-medium transition-all duration-200 border"
-              style={{
-                backgroundColor: activeArea === a.key ? `${a.color}15` : 'var(--bg-tertiary)',
-                borderColor: activeArea === a.key ? a.color : 'var(--border-color)',
-                color: activeArea === a.key ? a.color : 'var(--text-secondary)',
-              }}
-            >
-              <span>{a.icon}</span>
-              <span>{a.label[lang]}</span>
-            </button>
-          ))}
+          {skillAreas.map((a) => {
+            const IconComponent = iconMap[a.icon];
+            return (
+              <button
+                key={a.key}
+                onClick={() => setActiveArea(a.key)}
+                className="flex items-center gap-2 px-5 py-2.5 rounded-xl text-sm font-medium transition-all duration-200 border"
+                style={{
+                  backgroundColor: activeArea === a.key ? `${a.color}15` : 'var(--bg-tertiary)',
+                  borderColor: activeArea === a.key ? a.color : 'var(--border-color)',
+                  color: activeArea === a.key ? a.color : 'var(--text-secondary)',
+                }}
+              >
+                <IconComponent size={16} strokeWidth={2} />
+                <span>{a.label[lang]}</span>
+              </button>
+            );
+          })}
         </div>
 
         {/* Radar chart - shows selected area only */}
         <div className="mb-12 p-6 rounded-2xl border" style={{ backgroundColor: 'var(--card-bg)', borderColor: 'var(--border-color)' }}>
           <div className="flex flex-col lg:flex-row items-center gap-8">
-            <div className="flex-shrink-0">
-              <RadarChart data={radarData} />
+            <div className="flex-shrink-0 w-full lg:w-auto flex justify-center">
+              <RadarChart data={radarData} size={radarSize} />
             </div>
             <div className="flex-1 w-full">
-              <h3 className="text-xl font-bold mb-4" style={{ color: area.color }}>
-                {area.icon} {area.label[lang]}
-              </h3>
+              {(() => {
+                const IconComponent = iconMap[area.icon];
+                return (
+                  <>
+                    <h3 className="text-xl font-bold mb-4" style={{ color: area.color }}>
+                      <IconComponent size={20} strokeWidth={2} /> {area.label[lang]}
+                    </h3>
               <div className="space-y-3">
                 {area.skills.map((skill, i) => (
                   <div key={i} className="flex items-center gap-3">
@@ -184,6 +210,9 @@ export default function Skills() {
                   </div>
                 ))}
               </div>
+                  </>
+                );
+              })()}
             </div>
           </div>
         </div>
