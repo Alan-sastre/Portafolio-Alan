@@ -12,10 +12,14 @@ const translations: Record<string, { es: string; en: string }> = {
   'nav.contact': { es: 'Contacto', en: 'Contact' },
 
   // Hero
+  'hero.hello': { es: 'Hola, soy', en: 'Hello, I\'m' },
   'hero.role': { es: 'Desarrollador de Software', en: 'Software Developer' },
-  'hero.tagline': { es: 'Desarrollador de Software en Bogotá, Colombia', en: 'Software Developer in Bogotá, Colombia' },
+  'hero.tagline': { es: 'Backend con Python & Java | Ciberseguridad & IA', en: 'Backend with Python & Java | Cybersecurity & AI' },
   'hero.cta_projects': { es: 'Ver proyectos', en: 'View projects' },
+  'hero.cta_download_cv': { es: 'Descargar CV', en: 'Download CV' },
   'hero.cta_contact': { es: 'Contactar', en: 'Contact me' },
+  'hero.keyfacts_experience': { es: 'años de experiencia', en: 'years of experience' },
+  'hero.keyfacts_projects': { es: 'proyectos publicados', en: 'shipped projects' },
 
   // About
   'about.title': { es: 'Sobre mí', en: 'About Me' },
@@ -35,6 +39,9 @@ const translations: Record<string, { es: string; en: string }> = {
   'projects.subtitle': { es: 'Mi trabajo', en: 'My work' },
   'projects.view_code': { es: 'Ver código', en: 'View code' },
   'projects.view_live': { es: 'Ver en vivo', en: 'Live demo' },
+  'projects.code': { es: 'Código', en: 'Code' },
+  'projects.live': { es: 'En vivo', en: 'Live' },
+  'projects.featured': { es: 'Destacado', en: 'Featured' },
 
   // Experience
   'experience.title': { es: 'Experiencia', en: 'Experience' },
@@ -56,17 +63,50 @@ const translations: Record<string, { es: string; en: string }> = {
   // Education
   'education.title': { es: 'Educación y Certificaciones', en: 'Education & Certifications' },
   'education.subtitle': { es: 'Formación', en: 'Background' },
+  'education.education': { es: 'Educación', en: 'Education' },
+  'education.certifications': { es: 'Certificaciones', en: 'Certifications' },
+  'education.certificates_earned': { es: 'certificados obtenidos', en: 'certificates earned' },
   'education.degree': { es: 'Ingeniería de Sistemas', en: 'Systems Engineering' },
   'education.university': { es: 'Universidad Minuto de Dios', en: 'Universidad Minuto de Dios' },
   'education.cert': { es: 'Certificación', en: 'Certification' },
   'education.pentesting': { es: 'Pentesting — Universidad de los Andes', en: 'Pentesting — University of the Andes' },
+  'education.see_more': { es: 'Ver más', en: 'See more' },
+  'education.see_less': { es: 'Ver menos', en: 'See less' },
+
+  // Experience
+  'experience.title': { es: 'Experiencia', en: 'Experience' },
+  'experience.subtitle': { es: 'Mi trayectoria', en: 'My journey' },
+  'experience.projects_focus': { es: 'Enfoque en proyectos', en: 'Project-focused' },
+  'experience.projects_desc': {
+    es: 'Actualmente me enfoco en desarrollar proyectos personales y de código abierto que demuestran mis habilidades en backend, IA y seguridad.',
+    en: 'Currently I focus on developing personal and open-source projects that demonstrate my skills in backend, AI, and security.',
+  },
+
+  // Technologies
+  'technologies.subtitle': { es: 'Tecnologías', en: 'Technologies' },
+  'technologies.title': { es: 'Herramientas que uso', en: 'Tools I use' },
+  'technologies.description': {
+    es: 'Las tecnologías y herramientas que utilizo día a día para construir productos de software.',
+    en: 'The technologies and tools I use every day to build software products.',
+  },
 
   // GitHub
   'github.title': { es: 'Actividad en GitHub', en: 'GitHub Activity' },
   'github.subtitle': { es: 'Contribuciones', en: 'Contributions' },
+  'github.description': {
+    es: 'Mis contribuciones y pull requests más recientes.',
+    en: 'My recent contributions and pull requests.',
+  },
   'github.loading': { es: 'Cargando...', en: 'Loading...' },
-  'github.error': { es: 'No se pudo cargar la actividad', en: 'Could not load activity' },
-  'github.view_profile': { es: 'Ver perfil en GitHub', en: 'View GitHub profile' },
+  'github.error': { es: 'No se pudieron cargar las contribuciones de GitHub.', en: 'Could not load GitHub contributions.' },
+  'github.contributions_year': { es: 'Contribuciones del último año', en: 'Contributions in the last year' },
+  'github.less': { es: 'Menos', en: 'Less' },
+  'github.more': { es: 'Más', en: 'More' },
+  'github.recent_prs': { es: 'Pull Requests recientes', en: 'Recent Pull Requests' },
+  'github.merged': { es: 'Fusionado', en: 'Merged' },
+  'github.open': { es: 'Abierto', en: 'Open' },
+  'github.closed': { es: 'Cerrado', en: 'Closed' },
+  'github.view_profile': { es: 'Ver perfil de GitHub', en: 'View GitHub profile' },
 
   // Contact
   'contact.title': { es: 'Contacto', en: 'Contact' },
@@ -86,6 +126,12 @@ const translations: Record<string, { es: string; en: string }> = {
   // Common
   'common.year': { es: 'años', en: 'years' },
   'common.projects_count': { es: 'proyectos', en: 'projects' },
+  'common.close': { es: 'Cerrar', en: 'Close' },
+  'common.cert_not_available': { es: 'Certificado no disponible', en: 'Certificate not available' },
+  'common.download_pdf': { es: 'Descargar PDF', en: 'Download PDF' },
+  'common.verify': { es: 'Verificar', en: 'Verify' },
+  'common.see_more': { es: 'Ver más', en: 'See more' },
+  'common.see_less': { es: 'Ver menos', en: 'See less' },
 };
 
 registerTranslations(translations);
