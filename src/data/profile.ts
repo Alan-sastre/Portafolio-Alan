@@ -27,8 +27,8 @@ export const profile: Profile = {
     en: 'Software Developer',
   },
   tagline: {
-    es: 'Desarrollador de Software en Bogotá, Colombia',
-    en: 'Software Developer in Bogotá, Colombia',
+    es: 'Backend con Python & Java | Ciberseguridad & IA',
+    en: 'Backend with Python & Java | Cybersecurity & AI',
   },
   location: {
     es: 'Bogotá, Colombia',
