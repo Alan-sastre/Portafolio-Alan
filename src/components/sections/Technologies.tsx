@@ -23,7 +23,7 @@ const technologies = [
 ];
 
 export default function Technologies() {
-  const { lang, t } = useLanguage();
+  const { t } = useLanguage();
   const ref = useScrollReveal();
 
   return (
