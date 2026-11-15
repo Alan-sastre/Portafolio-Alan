@@ -73,15 +73,6 @@ const translations: Record<string, { es: string; en: string }> = {
   'education.see_more': { es: 'Ver más', en: 'See more' },
   'education.see_less': { es: 'Ver menos', en: 'See less' },
 
-  // Experience
-  'experience.title': { es: 'Experiencia', en: 'Experience' },
-  'experience.subtitle': { es: 'Mi trayectoria', en: 'My journey' },
-  'experience.projects_focus': { es: 'Enfoque en proyectos', en: 'Project-focused' },
-  'experience.projects_desc': {
-    es: 'Actualmente me enfoco en desarrollar proyectos personales y de código abierto que demuestran mis habilidades en backend, IA y seguridad.',
-    en: 'Currently I focus on developing personal and open-source projects that demonstrate my skills in backend, AI, and security.',
-  },
-
   // Technologies
   'technologies.subtitle': { es: 'Tecnologías', en: 'Technologies' },
   'technologies.title': { es: 'Herramientas que uso', en: 'Tools I use' },
