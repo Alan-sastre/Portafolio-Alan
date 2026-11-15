@@ -3,7 +3,7 @@ import { profile } from '../../data/profile';
 import { useScrollReveal } from '../../hooks/useScrollReveal';
 
 export default function Contact() {
-  const { lang, t } = useLanguage();
+  const { t } = useLanguage();
   const ref = useScrollReveal();
 
   return (
