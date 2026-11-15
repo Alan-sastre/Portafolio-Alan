@@ -45,7 +45,7 @@ function HeatmapCell({ date, count, maxCount }: { date: Date; count: number; max
 }
 
 export default function GitHubActivity() {
-  const { lang, t } = useLanguage();
+  const { t } = useLanguage();
   const revealRef = useScrollReveal();
   const parallaxRef = useParallax(0.03);
   const [contributions, setContributions] = useState<GitHubContribution[]>([]);
