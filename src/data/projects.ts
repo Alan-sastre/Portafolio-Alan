@@ -88,16 +88,16 @@ export const projects: Project[] = [
   },
   {
     title: {
-      es: "ExtractorCorreos",
-      en: "Email Extractor",
+      es: "Attack-Shark",
+      en: "Attack-Shark",
     },
     description: {
-      es: "Herramienta para extraer direcciones de correo electrónico de archivos y texto. Útil para análisis de datos, reconocimiento y procesamiento masivo de información.",
-      en: "Tool to extract email addresses from files and text. Useful for data analysis, reconnaissance, and bulk information processing.",
+      es: "Control center nativo para el mouse Attack Shark X11 en Linux: DPI, polling rate, RGB y botones. Sin Wine. ",
+      en: "Native control center for the Attack Shark X11 mouse on Linux: DPI, polling rate, RGB, and buttons. No Wine.",
     },
-    technologies: ["Python", "Regex", "Linux"],
-    githubUrl: "https://github.com/Alan-sastre/ExtractorCorreos",
-    imageColor: "#f97316",
+    technologies: ["Python", "JavaScript", "Linux"],
+    githubUrl: "https://github.com/Alan-sastre/attack-shark-x11-linux",
+    image: asset("/images/Attack.png"),
     featured: false,
   },
 ];
