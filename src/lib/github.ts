@@ -13,14 +13,14 @@ export interface GitHubPR {
 }
 
 export async function fetchContributions(username: string): Promise<{ contributions: GitHubContribution[]; totals: { total: number; byYear: Record<string, number> } }> {
-  // Try the public contributions API first (v4 format: { contributions: [{date, count, level}], total: {...} })
-  try {
-    const response = await fetch(
-      `https://github-contributions-api.jogruber.de/v4/${username}`,
-      { signal: AbortSignal.timeout(8000) }
-    );
-
-    if (response.ok) {
+  const sources = [
+    // Source 1: jogruber.de API (v4 format, reliable)
+    async () => {
+      const response = await fetch(
+        `https://github-contributions-api.jogruber.de/v4/${username}`,
+        { signal: AbortSignal.timeout(10000) }
+      );
+      if (!response.ok) throw new Error(`jogruber API: ${response.status}`);
       const data = await response.json();
       const apiContributions = data.contributions || [];
       const contributions: GitHubContribution[] = [];
@@ -33,25 +33,19 @@ export async function fetchContributions(username: string): Promise<{ contributi
         const year = dateStr.slice(0, 4);
         byYear[year] = (byYear[year] || 0) + count;
       }
-
       const total = Object.values(byYear).reduce((a, b) => a + b, 0);
       return { contributions, totals: { total, byYear } };
-    }
-  } catch {
-    // Fallback to REST API
-  }
-
-  // Fallback: generate contributions from public events
-  try {
-    const response = await fetch(
-      `https://api.github.com/users/${username}/events/public?per_page=100`,
-      {
-        headers: { 'Accept': 'application/vnd.github.v3+json' },
-        signal: AbortSignal.timeout(8000),
-      }
-    );
-
-    if (response.ok) {
+    },
+    // Source 2: GitHub REST API - public events (last 90 days)
+    async () => {
+      const response = await fetch(
+        `https://api.github.com/users/${username}/events/public?per_page=100`,
+        {
+          headers: { 'Accept': 'application/vnd.github.v3+json', 'If-None-Match': '' },
+          signal: AbortSignal.timeout(10000),
+        }
+      );
+      if (!response.ok) throw new Error(`GitHub REST API: ${response.status}`);
       const events = await response.json();
       const contributions: GitHubContribution[] = [];
       const byYear: Record<string, number> = {};
@@ -67,36 +61,77 @@ export async function fetchContributions(username: string): Promise<{ contributi
         const year = date.slice(0, 4);
         byYear[year] = (byYear[year] || 0) + 1;
       });
+      const total = Object.values(byYear).reduce((a, b) => a + b, 0);
+      return { contributions, totals: { total, byYear } };
+    },
+    // Source 3: GitHub REST API - repos commits
+    async () => {
+      const reposResponse = await fetch(
+        `https://api.github.com/users/${username}/repos?per_page=100`,
+        {
+          headers: { 'Accept': 'application/vnd.github.v3+json' },
+          signal: AbortSignal.timeout(10000),
+        }
+      );
+      if (!reposResponse.ok) throw new Error(`GitHub repos API: ${reposResponse.status}`);
+      const repos = await reposResponse.json();
+      const contributions: GitHubContribution[] = [];
+      const byYear: Record<string, number> = {};
+      const contribMap = new Map<string, number>();
+
+      // Fetch commits for each repo (limited to avoid rate limit)
+      const commitPromises = repos.slice(0, 10).map(async (repo: any) => {
+        try {
+          const repoName = repo.name;
+          const commitsResponse = await fetch(
+            `https://api.github.com/repos/${username}/${repoName}/commits?per_page=30`,
+            {
+              headers: { 'Accept': 'application/vnd.github.v3+json' },
+              signal: AbortSignal.timeout(8000),
+            }
+          );
+          if (commitsResponse.ok) {
+            const commits = await commitsResponse.json();
+            commits.forEach((commit: any) => {
+              const date = commit.commit.author?.date?.slice(0, 10);
+              if (date) {
+                const existing = contribMap.get(date) || 0;
+                contribMap.set(date, existing + 1);
+              }
+            });
+          }
+        } catch {
+          // Skip failed repos
+        }
+      });
+
+      await Promise.allSettled(commitPromises);
+
+      contribMap.forEach((count, date) => {
+        contributions.push({ date, count });
+        const year = date.slice(0, 4);
+        byYear[year] = (byYear[year] || 0) + count;
+      });
 
       const total = Object.values(byYear).reduce((a, b) => a + b, 0);
       return { contributions, totals: { total, byYear } };
-    }
-  } catch {
-    // Final fallback
-  }
+    },
+  ];
 
-  // Final fallback: generate from known active periods
-  const contributions: GitHubContribution[] = [];
-  const byYear: Record<string, number> = {};
-  const now = new Date();
-  const oneYearAgo = new Date(now.getFullYear() - 1, now.getMonth(), now.getDate());
-
-  for (let d = new Date(oneYearAgo); d <= now; d.setDate(d.getDate() + 1)) {
-    const dateStr = d.toISOString().slice(0, 10);
-    const year = dateStr.slice(0, 4);
-    // Generate realistic pattern based on known activity
-    const dayOfWeek = d.getDay();
-    const isWeekday = dayOfWeek > 0 && dayOfWeek < 6;
-    const count = isWeekday ? Math.random() > 0.5 ? Math.floor(Math.random() * 5) + 1 : 0 : Math.random() > 0.8 ? 1 : 0;
-
-    if (count > 0) {
-      contributions.push({ date: dateStr, count });
-      byYear[year] = (byYear[year] || 0) + count;
+  // Try each source in order
+  for (const source of sources) {
+    try {
+      const result = await source();
+      if (result.contributions.length > 0) {
+        return result;
+      }
+    } catch {
+      // Try next source
     }
   }
 
-  const total = Object.values(byYear).reduce((a, b) => a + b, 0);
-  return { contributions, totals: { total, byYear } };
+  // If all sources fail, return empty with error info
+  throw new Error("No se pudieron cargar las contribuciones. Las APIs de GitHub pueden estar limitadas. Intenta de nuevo más tarde.");
 }
 
 export async function fetchPRs(username: string): Promise<GitHubPR[]> {
