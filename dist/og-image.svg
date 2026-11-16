@@ -1,0 +1,70 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" width="1200" height="630">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0f172a"/>
+      <stop offset="100%" stop-color="#1e293b"/>
+    </linearGradient>
+    <linearGradient id="accent" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#3b82f6"/>
+      <stop offset="100%" stop-color="#1d4ed8"/>
+    </linearGradient>
+    <linearGradient id="dotPattern" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#3b82f6" stop-opacity="0.1"/>
+      <stop offset="100%" stop-color="#3b82f6" stop-opacity="0"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1200" height="630" fill="url(#bg)"/>
+
+  <!-- Dot pattern -->
+  <g fill="#3b82f6" opacity="0.08">
+    <circle cx="100" cy="100" r="2"/><circle cx="200" cy="100" r="2"/><circle cx="300" cy="100" r="2"/>
+    <circle cx="400" cy="100" r="2"/><circle cx="500" cy="100" r="2"/><circle cx="600" cy="100" r="2"/>
+    <circle cx="700" cy="100" r="2"/><circle cx="800" cy="100" r="2"/><circle cx="900" cy="100" r="2"/>
+    <circle cx="1000" cy="100" r="2"/><circle cx="1100" cy="100" r="2"/>
+    <circle cx="100" cy="200" r="2"/><circle cx="200" cy="200" r="2"/><circle cx="300" cy="200" r="2"/>
+    <circle cx="400" cy="200" r="2"/><circle cx="500" cy="200" r="2"/><circle cx="600" cy="200" r="2"/>
+    <circle cx="700" cy="200" r="2"/><circle cx="800" cy="200" r="2"/><circle cx="900" cy="200" r="2"/>
+    <circle cx="1000" cy="200" r="2"/><circle cx="1100" cy="200" r="2"/>
+    <circle cx="100" cy="530" r="2"/><circle cx="200" cy="530" r="2"/><circle cx="300" cy="530" r="2"/>
+    <circle cx="400" cy="530" r="2"/><circle cx="500" cy="530" r="2"/><circle cx="600" cy="530" r="2"/>
+    <circle cx="700" cy="530" r="2"/><circle cx="800" cy="530" r="2"/><circle cx="900" cy="530" r="2"/>
+    <circle cx="1000" cy="530" r="2"/><circle cx="1100" cy="530" r="2"/>
+    <circle cx="100" cy="600" r="2"/><circle cx="200" cy="600" r="2"/><circle cx="300" cy="600" r="2"/>
+    <circle cx="400" cy="600" r="2"/><circle cx="500" cy="600" r="2"/><circle cx="600" cy="600" r="2"/>
+    <circle cx="700" cy="600" r="2"/><circle cx="800" cy="600" r="2"/><circle cx="900" cy="600" r="2"/>
+    <circle cx="1000" cy="600" r="2"/><circle cx="1100" cy="600" r="2"/>
+  </g>
+
+  <!-- Accent line -->
+  <rect x="0" y="0" width="6" height="630" fill="url(#accent)"/>
+
+  <!-- Avatar circle -->
+  <circle cx="260" cy="315" r="80" fill="url(#accent)" opacity="0.9"/>
+  <text x="260" y="330" text-anchor="middle" fill="white" font-size="56" font-weight="bold" font-family="system-ui, sans-serif">AS</text>
+
+  <!-- Content -->
+  <text x="400" y="260" fill="#94a3b8" font-size="24" font-family="system-ui, sans-serif">Hola, soy</text>
+  <text x="400" y="330" fill="white" font-size="72" font-weight="bold" font-family="system-ui, sans-serif">Alan Sastre</text>
+  <text x="400" y="400" fill="#3b82f6" font-size="36" font-weight="500" font-family="system-ui, sans-serif">Desarrollador de Software</text>
+
+  <!-- Location -->
+  <text x="400" y="470" fill="#64748b" font-size="22" font-family="system-ui, sans-serif">📍 Bogotá, Colombia</text>
+
+  <!-- Tech tags -->
+  <rect x="400" y="500" width="100" height="36" rx="18" fill="#3b82f6" opacity="0.15"/>
+  <text x="450" y="524" text-anchor="middle" fill="#3b82f6" font-size="16" font-weight="500" font-family="system-ui, sans-serif">Python</text>
+
+  <rect x="515" y="500" width="80" height="36" rx="18" fill="#3b82f6" opacity="0.15"/>
+  <text x="555" y="524" text-anchor="middle" fill="#3b82f6" font-size="16" font-weight="500" font-family="system-ui, sans-serif">Java</text>
+
+  <rect x="610" y="500" width="110" height="36" rx="18" fill="#3b82f6" opacity="0.15"/>
+  <text x="665" y="524" text-anchor="middle" fill="#3b82f6" font-size="16" font-weight="500" font-family="system-ui, sans-serif">FastAPI</text>
+
+  <rect x="735" y="500" width="100" height="36" rx="18" fill="#3b82f6" opacity="0.15"/>
+  <text x="785" y="524" text-anchor="middle" fill="#3b82f6" font-size="16" font-weight="500" font-family="system-ui, sans-serif">Docker</text>
+
+  <rect x="850" y="500" width="90" height="36" rx="18" fill="#3b82f6" opacity="0.15"/>
+  <text x="895" y="524" text-anchor="middle" fill="#3b82f6" font-size="16" font-weight="500" font-family="system-ui, sans-serif">Linux</text>
+</svg>
