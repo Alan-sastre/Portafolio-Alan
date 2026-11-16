@@ -18,14 +18,15 @@ jobs:
       - name: Generate wide stats card
         uses: Sagargupta16/github-stats-card-action@v1
         with:
-          style: flat
+          layout: wide
           theme: dark
           output: public/assets/github-stats.svg
 
-      - name: Generate phone stats card
+      - name: Generate compact stats card
         uses: Sagargupta16/github-stats-card-action@v1
         with:
-          layout: phone
+          layout: compact
+          theme: dark
           output: public/assets/github-stats-phone.svg
 
       - name: Commit and push changes
