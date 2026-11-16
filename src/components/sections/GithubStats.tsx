@@ -31,7 +31,7 @@ export default function GithubStats() {
             className="text-3xl md:text-4xl font-bold mb-8"
             style={{ color: "var(--text-primary)" }}
           >
-            {t("github.title")}
+            {t("github.stats_title")}
           </h2>
 
           <div className="flex flex-col items-center space-y-6">
