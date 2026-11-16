@@ -15,26 +15,23 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Generate wide stats card
-        uses: Sagargupta16/github-stats-card-action@v1
+      - name: Generate GitHub Stats Card
+        uses: lowlighter/metrics@latest
         with:
-          layout: wide
-          theme: dark
-          output: public/assets/github-stats.svg
-
-      - name: Generate compact stats card
-        uses: Sagargupta16/github-stats-card-action@v1
-        with:
-          layout: compact
-          theme: dark
-          output: public/assets/github-stats-phone.svg
-
+          token: ${{ secrets.METRICS_TOKEN }}
+          user: Alan-sastre
+          template: classic
+          base: header, activity, community, repositories, metadata
+          config_timezone: America/Bogota
+          filename: public/assets/github-metrics.svg
+          optimize: svg
+          
       - name: Commit and push changes
         run: |
           git config --local user.email "github-actions[bot]@users.noreply.github.com"
           git config --local user.name "github-actions[bot]"
           git add public/assets/
           if ! git diff --cached --quiet; then
-            git commit -m "docs: update github stats cards"
+            git commit -m "docs: update github metrics card"
             git push
           fi
