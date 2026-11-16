@@ -12,7 +12,6 @@ import Experience from "./components/sections/Experience";
 import Skills from "./components/sections/Skills";
 import Technologies from "./components/sections/Technologies";
 import Education from "./components/sections/Education";
-import GithubStats from "./components/sections/GithubStats";
 import GitHubActivity from "./components/sections/GitHubActivity";
 import Contact from "./components/sections/Contact";
 
@@ -32,7 +31,6 @@ function App() {
             <Skills />
             <Technologies />
             <Education />
-            <GithubStats />
             <GitHubActivity />
             <Contact />
           </main>
