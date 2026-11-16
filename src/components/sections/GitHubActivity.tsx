@@ -8,7 +8,7 @@ import {
 } from "../../lib/github";
 import { useScrollReveal } from "../../hooks/useScrollReveal";
 import { useParallax } from "../../hooks/useParallax";
-import { useState, useEffect, useMemo } from "react";
+import { useState, useEffect, useMemo, useCallback, useRef } from "react";
 
 function getWeekday(index: number): string {
   const days = ["S", "M", "T", "W", "T", "F", "S"];
@@ -79,62 +79,126 @@ export default function GitHubActivity() {
   const { t } = useLanguage();
   const revealRef = useScrollReveal();
   const parallaxRef = useParallax(0.03);
-  const [contributions, setContributions] = useState<GitHubContribution[]>([]);
+  const [allContributions, setAllContributions] = useState<GitHubContribution[]>([]);
+  const [totals, setTotals] = useState<{ total: number; byYear: Record<string, number> }>({ total: 0, byYear: {} });
+  const [selectedYear, setSelectedYear] = useState<string>("all");
   const [prs, setPrs] = useState<GitHubPR[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const intervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
+  const loadingRef = useRef(true);
 
-  useEffect(() => {
-    Promise.allSettled([
-      fetchContributions(profile.githubUser),
-      fetchPRs(profile.githubUser).catch(() => []),
-    ])
-      .then(([contribResult, prResult]) => {
-        if (contribResult.status === "fulfilled") {
-          setContributions(contribResult.value.contributions);
-        } else {
-          setError(
-            contribResult.reason?.message || "Failed to load contributions",
-          );
+  const loadData = useCallback(async () => {
+    try {
+      const [contribResult, prResult] = await Promise.allSettled([
+        fetchContributions(profile.githubUser),
+        fetchPRs(profile.githubUser).catch(() => []),
+      ]);
+
+      if (contribResult.status === "fulfilled") {
+        setAllContributions(contribResult.value.contributions);
+        setTotals(contribResult.value.totals);
+        setError(null);
+        // Auto-select the current year if "all" was selected
+        if (selectedYear === "all") {
+          const currentYear = String(new Date().getFullYear());
+          if (contribResult.value.totals.byYear[currentYear]) {
+            setSelectedYear(currentYear);
+          }
         }
+      } else {
+        setError(
+          contribResult.reason?.message || "Error al cargar contribuciones",
+        );
+      }
 
-        if (prResult.status === "fulfilled") {
-          setPrs(prResult.value);
-        }
+      if (prResult.status === "fulfilled") {
+        setPrs(prResult.value);
+      }
 
-        setLoading(false);
-      })
-      .catch(() => {
-        setError("Network error");
-        setLoading(false);
-      });
+      setLoading(false);
+      loadingRef.current = false;
+    } catch {
+      setError("Error de red");
+      setLoading(false);
+      loadingRef.current = false;
+    }
   }, []);
 
+  // Load data on mount
+  useEffect(() => {
+    loadData();
+  }, [loadData]);
+
+  // Auto-refresh every 60 seconds
+  useEffect(() => {
+    intervalRef.current = setInterval(() => {
+      loadData();
+    }, 60000);
+
+    return () => {
+      if (intervalRef.current) {
+        clearInterval(intervalRef.current);
+      }
+    };
+  }, [loadData]);
+
+  // Filter contributions by selected year
+  const filteredContributions = useMemo(() => {
+    if (selectedYear === "all") return allContributions;
+    return allContributions.filter((c) => c.date.startsWith(selectedYear));
+  }, [allContributions, selectedYear]);
+
+  // Get sorted years from totals
+  const years = useMemo(() => {
+    return Object.keys(totals.byYear)
+      .sort((a, b) => b.localeCompare(a))
+      .filter((year) => totals.byYear[year] > 0);
+  }, [totals]);
+
   const { grid, months, maxCount } = useMemo(() => {
-    if (contributions.length === 0)
+    const contribs = filteredContributions;
+    if (contribs.length === 0)
       return { grid: [] as GridCell[][], months: [] as string[], maxCount: 1 };
 
     const contribMap = new Map<string, number>();
-    contributions.forEach((c) => contribMap.set(c.date, c.count));
-    const maxCount = Math.max(...contributions.map((c) => c.count), 1);
+    contribs.forEach((c) => contribMap.set(c.date, c.count));
+    const maxCount = Math.max(...contribs.map((c) => c.count), 1);
 
-    const now = new Date();
-    const startDate = new Date(now);
-    startDate.setDate(startDate.getDate() - 364);
-    // Adjust to the previous Sunday
-    startDate.setDate(startDate.getDate() - startDate.getDay());
+    // Use local date string format (YYYY-MM-DD) to match API dates
+    const toLocalDateStr = (d: Date) => {
+      const year = d.getFullYear();
+      const month = String(d.getMonth() + 1).padStart(2, '0');
+      const day = String(d.getDate()).padStart(2, '0');
+      return `${year}-${month}-${day}`;
+    };
+
+    // Determine date range based on selected year
+    let startDate: Date;
+    let endDate: Date;
+    if (selectedYear === "all") {
+      endDate = new Date();
+      startDate = new Date(endDate);
+      startDate.setDate(startDate.getDate() - 364);
+      startDate.setDate(startDate.getDate() - startDate.getDay());
+    } else {
+      const year = parseInt(selectedYear);
+      startDate = new Date(year, 0, 1);
+      startDate.setDate(startDate.getDate() - startDate.getDay());
+      endDate = new Date(year, 11, 31);
+    }
 
     const grid: GridCell[][] = [];
     const currentWeek: GridCell[] = [];
 
-    for (let d = new Date(startDate); d <= now; d.setDate(d.getDate() + 1)) {
-      const dateStr = d.toISOString().slice(0, 10);
+    for (let d = new Date(startDate); d <= endDate; d.setDate(d.getDate() + 1)) {
+      const dateStr = toLocalDateStr(d);
       currentWeek.push({
         date: new Date(d),
         count: contribMap.get(dateStr) || 0,
       });
 
-      if (d.getDay() === 6 || d >= now) {
+      if (d.getDay() === 6 || d >= endDate) {
         grid.push([...currentWeek]);
         currentWeek.length = 0;
       }
@@ -155,7 +219,7 @@ export default function GitHubActivity() {
     }
 
     return { grid, months, maxCount };
-  }, [contributions]);
+  }, [filteredContributions, selectedYear]);
 
   return (
     <section id="github" className="py-6">
@@ -190,10 +254,16 @@ export default function GitHubActivity() {
             >
               <p style={{ color: "var(--text-muted)" }}>{t("github.error")}</p>
               <p
-                className="text-sm mt-2"
+                className="text-sm mt-2 mb-4"
                 style={{ color: "var(--text-muted)" }}
               >
                 {error}
+              </p>
+              <p
+                className="text-sm mt-2"
+                style={{ color: "var(--text-muted)" }}
+              >
+                {t("github.auto_retry")}
               </p>
             </div>
           )}
@@ -206,7 +276,7 @@ export default function GitHubActivity() {
                   className="text-lg font-semibold mb-4"
                   style={{ color: "var(--text-primary)" }}
                 >
-                  {t("github.contributions_year")}
+                  {t("github.contributions_all")}
                 </h3>
                 <div className="overflow-x-auto pb-2">
                   <div className="inline-block">
@@ -298,6 +368,30 @@ export default function GitHubActivity() {
                     </div>
                   </div>
                 </div>
+                {/* Year selector - horizontal tabs below, 2025+ only */}
+                {years.filter((y) => parseInt(y) >= 2025).length > 0 && (
+                  <div className="flex flex-wrap gap-2 mt-4">
+                    {years
+                      .filter((y) => parseInt(y) >= 2025)
+                      .map((year) => {
+                        const isActive = selectedYear === year;
+                        return (
+                          <button
+                            key={year}
+                            onClick={() => setSelectedYear(year)}
+                            className="px-4 py-2 rounded-lg text-sm font-semibold transition-all duration-300"
+                            style={{
+                              backgroundColor: isActive ? "var(--primary-500)" : "transparent",
+                              color: isActive ? "#fff" : "var(--text-secondary)",
+                              border: "1px solid var(--border-color)",
+                            }}
+                          >
+                            {year}
+                          </button>
+                        );
+                      })}
+                  </div>
+                )}
               </div>
 
               {/* PRs */}
