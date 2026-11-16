@@ -7,12 +7,13 @@ export default function Navbar() {
   const { lang, setLang, t } = useLanguage();
   const { isDark, toggle } = useTheme();
   const [open, setOpen] = useState(false);
-  const activeSection = useActiveSection(['projects', 'skills', 'education', 'github', 'contact']);
+  const activeSection = useActiveSection(['projects', 'skills', 'education', 'stats', 'github', 'contact']);
 
   const links = [
     { href: '#projects', label: t('nav.projects') },
     { href: '#skills', label: t('nav.skills') },
     { href: '#education', label: t('nav.education') },
+    { href: '#stats', label: t('github.title') },
     { href: '#github', label: t('nav.github') },
     { href: '#contact', label: t('nav.contact') },
   ];

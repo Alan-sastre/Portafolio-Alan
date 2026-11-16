@@ -1,0 +1,39 @@
+name: GitHub Stats Card
+
+on:
+  schedule:
+    - cron: "0 6 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  generate-stats:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Generate wide stats card
+        uses: Sagargupta16/github-stats-card-action@v1
+        with:
+          style: flat
+          theme: dark
+          output: public/assets/github-stats.svg
+
+      - name: Generate phone stats card
+        uses: Sagargupta16/github-stats-card-action@v1
+        with:
+          layout: phone
+          output: public/assets/github-stats-phone.svg
+
+      - name: Commit and push changes
+        run: |
+          git config --local user.email "github-actions[bot]@users.noreply.github.com"
+          git config --local user.name "github-actions[bot]"
+          git add public/assets/
+          if ! git diff --cached --quiet; then
+            git commit -m "docs: update github stats cards"
+            git push
+          fi
