@@ -110,6 +110,7 @@ const translations: Record<string, { es: string; en: string }> = {
 
   // GitHub
   "github.title": { es: "Actividad en GitHub", en: "GitHub Activity" },
+  "github.stats_title": { es: "Estadísticas de GitHub", en: "GitHub Stats" },
   "github.subtitle": { es: "Contribuciones", en: "Contributions" },
   "github.description": {
     es: "Mis contribuciones y pull requests más recientes.",
