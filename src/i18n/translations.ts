@@ -124,6 +124,10 @@ const translations: Record<string, { es: string; en: string }> = {
     es: "Contribuciones del último año",
     en: "Contributions in the last year",
   },
+  "github.contributions_all": {
+    es: "Contribuciones",
+    en: "Contributions",
+  },
   "github.less": { es: "Menos", en: "Less" },
   "github.more": { es: "Más", en: "More" },
   "github.recent_prs": {
@@ -137,6 +141,13 @@ const translations: Record<string, { es: string; en: string }> = {
     es: "Ver perfil de GitHub",
     en: "View GitHub profile",
   },
+  "github.refresh": {
+    es: "Refrescar contribuciones",
+    en: "Refresh contributions",
+  },
+  "github.refreshing": { es: "Refrescando...", en: "Refreshing..." },
+  "github.retry": { es: "Reintentar", en: "Retry" },
+  "github.auto_retry": { es: "Se reintentará automáticamente en breve.", en: "Will retry automatically shortly." },
 
   // Contact
   "contact.title": { es: "Contacto", en: "Contact" },
