@@ -1,3 +1,4 @@
+import { Analytics } from '@vercel/analytics/react';
 import { LanguageProvider } from "./i18n/LanguageContext";
 import "./i18n/translations";
 
@@ -37,6 +38,7 @@ function App() {
           <Footer />
         </div>
       </div>
+      <Analytics />
     </LanguageProvider>
   );
 }
